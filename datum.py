@@ -21,6 +21,5 @@ print 'showing all '+str(map(lambda x: day_names[x],days))+" in "\
         +month_names[month]+" of "+str(year)+":"
 
 for x,y in c.itermonthdays2(year, month):
-    if x > 0:
-        if y in days:
-            print x
+    if x > 0 and y in days:
+        print x
