@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=UTF-8>
+    <title>Datum</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+      $(function(){
+        var date  = new Date();
+        var year  = date.getFullYear();
+        var month = date.getMonth();
+        $("#year").val(date.getFullYear());
+        $("#month").val(date.getMonth());
+
+        calculateList();
+        $("input[name=weekday]").change(function() { calculateList(); });
+        $("#year").change(function() { calculateList(); });
+        $("#month").change(function() { calculateList(); });
+
+        function calculateList(){
+          $("#list").empty();
+          var year = parseInt($("#year").val());
+          var month = parseInt($("#month").val());
+          var weekDays = $("input[name=weekday]").filter(function() { return this.checked; })
+                                                 .map(function() { return parseInt($(this).val()); })
+                                                 .get();
+          var date  = new Date(year, month, 1);
+          var start = date.getDay();
+
+          date.setMonth(month+1);
+          var nextMonth = date.getMonth();
+
+          var dates = [];
+          weekDays.forEach(function(weekDay){
+            for(var d = weekDay - start; new Date(year, month, d).getMonth() != nextMonth; d += 7)
+              dates.push(d);
+          });
+          
+          // Remove negative values and sort
+          dates.filter( function(a   ) { return a>0; })
+               .sort(   function(a, b) { return a-b; })
+               .forEach(function(d   ) { $("#list").append("<li>"+d+"</li>"); });
+        };
+
+      });
+    </script>
+  </head>
+  <body>
+    Lista datum för vissa veckodagar under en månad<br><br>
+    <select id=month>
+      <option value=0>Januari</option>
+      <option value=1>Februari</option>
+      <option value=2>Mars</option>
+      <option value=3>April</option>
+      <option value=4>Maj</option>
+      <option value=5>Juni</option>
+      <option value=6>Juli</option>
+      <option value=7>Augusti</option>
+      <option value=8>September</option>
+      <option value=9>Oktober</option>
+      <option value=10>November</option>
+      <option value=11>December</option>
+    </select>
+    <input type=text id=year>
+    <br>
+    <input type="checkbox" name="weekday" value=0>Mån
+    <input type="checkbox" name="weekday" value=1>Tis
+    <input type="checkbox" name="weekday" value=2>Ons
+    <input type="checkbox" name="weekday" value=3>Tors
+    <input type="checkbox" name="weekday" value=4>Fre
+    <input type="checkbox" name="weekday" value=5>Lör
+    <input type="checkbox" name="weekday" value=6>Sön
+    <br>
+    <div>
+      <ul id=list></ul>
+    </div>
+  </body>
+</html>
