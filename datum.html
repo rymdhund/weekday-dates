@@ -32,7 +32,7 @@
 
           var dates = [];
           weekDays.forEach(function(weekDay){
-            for(var d = weekDay - start; new Date(year, month, d).getMonth() != nextMonth; d += 7)
+            for(var d = weekDay - start + 1; new Date(year, month, d).getMonth() != nextMonth; d += 7)
               dates.push(d);
           });
           
@@ -63,13 +63,13 @@
     </select>
     <input type=text id=year>
     <br>
-    <input type="checkbox" name="weekday" value=0>Mån
-    <input type="checkbox" name="weekday" value=1>Tis
-    <input type="checkbox" name="weekday" value=2>Ons
-    <input type="checkbox" name="weekday" value=3>Tors
-    <input type="checkbox" name="weekday" value=4>Fre
-    <input type="checkbox" name="weekday" value=5>Lör
-    <input type="checkbox" name="weekday" value=6>Sön
+    <input type="checkbox" name="weekday" value=1>Mån
+    <input type="checkbox" name="weekday" value=2>Tis
+    <input type="checkbox" name="weekday" value=3>Ons
+    <input type="checkbox" name="weekday" value=4>Tors
+    <input type="checkbox" name="weekday" value=5>Fre
+    <input type="checkbox" name="weekday" value=6>Lör
+    <input type="checkbox" name="weekday" value=0>Sön
     <br>
     <div>
       <ul id=list></ul>
